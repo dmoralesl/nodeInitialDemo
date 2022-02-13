@@ -2,11 +2,10 @@
   "name": "nodeinitialdemo",
   "version": "1.0.0",
   "description": "Dices API game",
-  "main": "app/app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app/app.js",
-    "start:watch": "nodemon app/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "babel-node index.js",
+    "dev:start": "nodemon --exec babel-node index.js"
   },
   "author": "David Morales",
   "license": "ISC",
@@ -15,7 +14,11 @@
     "express": "^4.17.2",
     "pm2": "^4.5.6"
   },
-  "devDependencies" {
-    "nodemon": "^2.0.7"
+  "devDependencies": {
+    "@babel/core": "^7.17.2",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "nodemon": "^2.0.15"
   }
 }
