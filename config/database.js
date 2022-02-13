@@ -1,16 +1,9 @@
-import mongoose from "mongoose";
+import Sequelize from "sequelize";
 
-class Connection {
-  constructor() {
-    const url = process.env.MONGODB_URI || `mongodb://localhost:27017/dice-game`;
-    console.log("Establish new connection with url", url);
-    mongoose.Promise = global.Promise;
-    // mongoose.set("useNewUrlParser", true);
-    // mongoose.set("useFindAndModify", false);
-    // mongoose.set("useCreateIndex", true);
-    // mongoose.set("useUnifiedTopology", true);
-    mongoose.connect(url);
-  }
-}
 
-export default new Connection();
+const user = process.env.MUSQL_USER || "root";
+const password = process.env.MYSQL_PASSWORD || "root";
+// connect to db
+
+export default new Sequelize('dice_game', user, password, { dialect: 'mysql' });
+

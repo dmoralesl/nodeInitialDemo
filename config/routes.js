@@ -1,13 +1,12 @@
-import GameController from './../src/controllers/GameController';
-import PlayerController from './../src/controllers/PlayerController';
-
+import GameController from './../src/controllers/GameController.js';
+import PlayerController from './../src/controllers/PlayerController.js';
 
 export default (server) => {
 
     // Player routes
     server.get('/api/players', PlayerController.getAll);
     server.post(`/api/players`, PlayerController.insert)
-    server.put(`/api/players`, PlayerController.update);
+    server.put(`/api/players/:id`, PlayerController.update);
 
     // Game routes
     server.get('/api/players/:id/games', GameController.getAll);

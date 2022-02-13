@@ -1,11 +1,13 @@
 import express from "express";
 import bodyParser from "body-parser";
 
-import setRoutes from "./routes";
+import setRoutes from "./routes.js";
 
 const server = express();
-setRoutes(server);
 
+server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json());
+
+setRoutes(server);
 
 export default server;
