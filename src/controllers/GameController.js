@@ -1,7 +1,8 @@
 import Controller from  './Controller.js';
 import GameService from  "./../services/GameService.js";
-import Game from  "./../models/Game.js"
-;
+import Game from  "./../models/Game.js";
+import Dice from "./../models/Dice.js";
+
 const gameService = new GameService(
   Game
 );

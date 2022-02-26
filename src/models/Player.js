@@ -23,6 +23,5 @@ Player.init({
     
 }, { sequelize: database });
 
-Player.sync();
 
 export default Player;

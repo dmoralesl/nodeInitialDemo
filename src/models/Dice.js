@@ -1,21 +1,21 @@
 import { Model, DataTypes } from "sequelize";
 
-import Player from "./Player.js";
+import Game from "./Game.js";
 import database from "../../config/database.js";
 
-class Game extends Model { };
+class Dice extends Model { };
 
-Game.init({
+Dice.init({
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    playerId: {
+    gameId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-            model: "players",
+            model: "games",
             key: "id"
         }
     },
@@ -23,22 +23,11 @@ Game.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-            min: 2,
-            max: 12
+            min: 1,
+            max: 6
         }
-    },
-    isWin: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-    },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
     }
 }, { sequelize: database });
 
 
-
-
-
-export default Game;
+export default Dice;
