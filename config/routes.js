@@ -1,21 +1,26 @@
+import express from 'express';
+
 import GameController from './../src/controllers/GameController.js';
 import PlayerController from './../src/controllers/PlayerController.js';
 
-export default (server) => {
 
-    // Player routes
-    server.get('/api/players', PlayerController.getAll);
-    server.post(`/api/players`, PlayerController.insert)
-    server.put(`/api/players/:id`, PlayerController.update);
+const router = express.Router();
 
-    // Game routes
-    server.get('/api/players/:id/games', GameController.getAll);
-    server.post(`/api/players/:id/games`, GameController.insert)
-    server.delete(`/api/players/:id/games`, GameController.delete);
 
-    // Ranking routes
-    server.get('/api/players/ranking', GameController.getMean);
-    server.get('/api/players/winner', GameController.getWinner);
-    server.get('/api/players/loser', GameController.getLoser);
+// Player routes
+router.get('/players', PlayerController.getAll);
+router.post('/players', PlayerController.insert)
+router.put('/players/:id', PlayerController.update);
 
-}
+// Game routes
+router.get('/players/:id/games', GameController.getAll);
+router.post('/players/:id/games', GameController.insert)
+router.delete('/players/:id/games', GameController.delete);
+
+// Ranking routes
+router.get('/players/ranking', GameController.getMean);
+router.get('/players/winner', GameController.getWinner);
+router.get('/players/loser', GameController.getLoser);
+
+
+export default router;

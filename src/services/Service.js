@@ -10,14 +10,37 @@ class Service {
   async getAll() {
 
     try {
-      let items = await this.model.findAll();
-      let total = await this.model.count();
+      let { count, rows } = await this.model.findAndCountAll();
+
 
       return {
         error: false,
         statusCode: 200,
-        data: items,
-        total
+        data: rows,
+        total: count
+      };
+    } catch (errors) {
+      return {
+        error: true,
+        statusCode: 500,
+        errors
+      };
+    }
+  }
+
+  async getByAttr(field, value) {
+    console.log(field, value)
+    try {
+      let { count, rows } = await this.model.findAndCountAll({
+        where: {
+          [field]: value
+        }
+      });
+      return {
+        error: false,
+        statusCode: 200,
+        data: rows,
+        total: count
       };
     } catch (errors) {
       return {
@@ -67,6 +90,35 @@ class Service {
   async delete(id) {
     try {
       let item = await this.model.findByIdAndDelete(id);
+      if (!item)
+        return {
+          error: true,
+          statusCode: 404,
+          message: "item not found"
+        };
+
+      return {
+        error: false,
+        deleted: true,
+        statusCode: 202,
+        item
+      };
+    } catch (error) {
+      return {
+        error: true,
+        statusCode: 500,
+        error
+      };
+    }
+  }
+
+  async deleteByAttr(field, value) {
+    try {
+      let item = await this.model.destroy({
+        where: {
+          [field]: value
+          }
+        });
       if (!item)
         return {
           error: true,

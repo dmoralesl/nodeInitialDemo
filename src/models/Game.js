@@ -17,7 +17,8 @@ Game.init({
         references: {
             model: "players",
             key: "id"
-        }
+        },
+        onDelete: 'CASCADE'
     },
     result: {
         type: DataTypes.INTEGER,
@@ -37,7 +38,7 @@ Game.init({
     }
 }, { sequelize: database });
 
-
+Player.hasMany(Game);
 
 
 
