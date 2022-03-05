@@ -3,7 +3,7 @@
 ## Requisits
 S'haurà de tenir node i npm instal·lat a la màquina, així com un servidor de MySql executant-se al port per defecte.   
 A més, caldrà tenir dues variables d'entorn definides anomenades MYSQL_USER i MYSQL_PASSWORD amb les credencials de la base de dades. Alternativament, es pot obviar aquest pas si tenim un usuari "root" amb contrasenya "root", ja que són els valors per defecte. 
-Les variables d'entorn també poden estar definides a un fitxer .env a l'arrel del projecte.
+Les variables d'entorn també poden estar definides a un fitxer .env a l'arrel del projecte, es pot seguir l'estructura del fitxer "example.env".
 
 ## DB Setup
 Per poder executar l'aplicació, s'haurà de crear en primer lloc la base de dades. 
