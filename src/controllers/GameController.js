@@ -11,6 +11,7 @@ class GameController extends Controller {
 
   constructor(service) {
     super(service);
+    this.getMean = this.getMean.bind(this);
   }
 
   async getAll(req, res) {
@@ -21,7 +22,7 @@ class GameController extends Controller {
   // Overriding method to get the playerId from url path
   async insert(req, res) {
     const { id } = req.params;
-    let response = await this.service.insert({playerId: id, ...req.body});
+    const response = await this.service.insert({playerId: id, ...req.body});
     if (response.error) return res.status(response.statusCode).send(response);
     return res.status(201).send(response);
   }
@@ -29,24 +30,18 @@ class GameController extends Controller {
   async delete(req, res) {
     const { id } = req.params;
 
-    let response = await this.service.deleteByAttr('playerid', id);
-
+    const response = await this.service.deleteByAttr('playerid', id);
+    
     return res.status(response.statusCode).send(response);
   }
 
 
   async getMean(req, res) {
-    return res.status(200).send({dummy: 'dummy'});
+    const resposne = await this.service.getMean();
+    return res.status(200).send(resposne);
   }
 
 
-  async getWinner(req, res) {
-    return res.status(200).send({dummy: 'dummy'});
-  }
-
-  async getLoser(req, res) {
-    return res.status(200).send({dummy: 'dummy'});
-  }
 }
 
 export default new GameController(gameService);

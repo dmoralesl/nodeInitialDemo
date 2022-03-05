@@ -19,8 +19,8 @@ router.delete('/players/:id/games', GameController.delete);
 
 // Ranking routes
 router.get('/players/ranking', GameController.getMean);
-router.get('/players/winner', GameController.getWinner);
-router.get('/players/loser', GameController.getLoser);
+router.get('/players/winner', PlayerController.getWinner);
+router.get('/players/loser', PlayerController.getLoser);
 
 
 export default router;

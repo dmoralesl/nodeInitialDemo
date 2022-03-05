@@ -29,7 +29,6 @@ class Service {
   }
 
   async getByAttr(field, value) {
-    console.log(field, value)
     try {
       let { count, rows } = await this.model.findAndCountAll({
         where: {
