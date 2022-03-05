@@ -10,24 +10,30 @@ class PlayerService extends Service {
   }
 
   async getAll () {
-    console.log(typeof Game)
+
     try {
-      let { count, rows } = await this.model.findAndCountAll({
+
+      const data = await this.model.findAll({
+
+        attributes: {
+          include: [[sequelize.literal('SUM(Games.isWin)/COUNT(Games.isWin)*100'), 'winsPercentage']]
+        },
         include: [
           {
             model: Game,
-            attributes: [
-              [sequelize.literal('SUM(Games.isWin)/COUNT(Games.isWin)*100'), 'winsPercentage']
-            ]
+            required: false,
+            attributes: []
           }
-        ]
-      })
+        ],
+        group: ['id']
+      });
+      const total = await this.model.count();
 
       return {
         error: false,
         statusCode: 200,
-        data: rows,
-        total: count
+        data,
+        total
       }
     } catch (errors) {
       return {
