@@ -35,3 +35,7 @@ Per tenir el servidor en marxa i poder fer-lo servir, haurem d'haver completat e
 ```bash
 npm start
 ```
+
+## Provant els endpoints
+Hi ha a l'arrel del directori un fitxer anomenat "postman_collection.json" que es pot importar amb el programa Postman i conté una petició d'exemple per a cada endpoint.    
+La primera tasca serà crear un usuari, que es podrà fer a través de la petició Create player o Create anon player de la carpeta Players. Amb l'ID que retorni aquesta petició haurem de fixar una variable de l'entorn de la col·lecció amb nom "playerId" i com a valor l'ID que s'ha retornat. Aquesta variable servirà per altres peticions com la de crear partides, modificar l'usuari o esborrar totes les partides de l'usuari.
