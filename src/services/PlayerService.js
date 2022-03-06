@@ -1,5 +1,3 @@
-import sequelize from 'sequelize'
-
 import Service from './Service.js'
 import Game from '../models/Game.js'
 
@@ -12,30 +10,15 @@ class PlayerService extends Service {
   }
 
   async getAll () {
-
     try {
-
-      const data = await this.model.findAll({
-
-        attributes: {
-          include: [[sequelize.literal('SUM(Games.isWin)/COUNT(Games.isWin)*100'), 'winsPercentage']]
-        },
-        include: [
-          {
-            model: Game,
-            required: false,
-            attributes: []
-          }
-        ],
-        group: ['id']
-      });
-      const total = await this.model.count();
+      const data = await this.model.find();
+   
 
       return {
         error: false,
         statusCode: 200,
         data,
-        total
+        total: data.length
       }
     } catch (errors) {
       return {

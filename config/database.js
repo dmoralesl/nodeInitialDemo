@@ -1,9 +1,5 @@
-import Sequelize from "sequelize";
+import mongoose from "mongoose";
 
-
-const user = process.env.MUSQL_USER || "root";
-const password = process.env.MYSQL_PASSWORD || "root";
 // connect to db
 
-export default new Sequelize('dice_game', user, password, { dialect: 'mysql' });
-
+export default await mongoose.connect('mongodb://localhost:27017/dice_game');

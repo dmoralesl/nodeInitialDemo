@@ -1,27 +1,10 @@
-import { Model, DataTypes } from "sequelize";
-
 import database from "../../config/database.js";
 
+const Schema = database.Schema;
 
-class Player extends Model {};
-
-Player.init({
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        unique: true
-    },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
-    }
-    
-}, { sequelize: database });
-
+const Player = database.model('Player', new Schema({
+    name: String,
+    createdAt: Date
+}));
 
 export default Player;

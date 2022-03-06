@@ -1,34 +1,29 @@
-import sequelize from 'sequelize';
 
 import Service from './Service.js';
-import DiceService from './DiceService.js';
-import Dice from '../models/Dice.js';
 
 class GameService extends Service {
   constructor(model) {
     super(model);
-    this.diceService = new DiceService(Dice);
     this.getMean = this.getMean.bind(this);
 
   }
 
   async insert(data) {
     // Generating random dice values and result
-    const diceValues = this.diceService.generateDiceValues(2);
-    const result = diceValues.reduce((a, b) => a + b, 0);
+    const dices = [];
+    for (let i = 0; i < 2; i++) {
+      dices.push(Math.floor(Math.random() * 6) + 1);
+    }
+    
+    const result = dices.reduce((a, b) => a + b, 0);
     const isWin = result === 7;
 
-    // Updating calculated values to data object
-    data = { ...data, result, isWin };
+    // Updating calculated values to data object 
+    data = { ...data, result, isWin, dices };
 
     try {
       let item = await this.model.create(data);
-      let dices = await Promise.all(
-        diceValues.map(async(diceValue) => await this.diceService.insert({
-          result: diceValue,
-          gameId: item.id
-        }))
-      )
+
       
       item.dataValues = {...item.dataValues, dices};
       if (item)
