@@ -12,6 +12,32 @@ class GameService extends Service {
 
   }
 
+
+  async getByAttr(field, value) {
+    try {
+      let { count, rows } = await this.model.findAndCountAll({
+        where: {
+          [field]: value
+        }
+      });
+      return {
+        error: false,
+        statusCode: 200,
+        data: { 
+          winPercentage: rows.filter(row => row.isWin).length / rows.length * 100,
+          games: rows
+        },
+        total: count
+      };
+    } catch (errors) {
+      return {
+        error: true,
+        statusCode: 500,
+        errors
+      };
+    }
+  }
+
   async insert(data) {
     // Generating random dice values and result
     const diceValues = this.diceService.generateDiceValues(2);
