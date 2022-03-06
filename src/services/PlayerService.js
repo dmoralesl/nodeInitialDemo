@@ -58,27 +58,36 @@ class PlayerService extends Service {
 
   async getWinner () {
     try {
-      const data = await this.model.findOne({
-        attributes: {
-          include: [
-            [
-              sequelize.literal('SUM(Games.isWin)/COUNT(Games.isWin)*100'),
-              'winsPercentage'
-            ]
-          ]
-        },
-        include: [
-          {
-            model: Game,
-            required: false,
-            attributes: []
+      const data = await this.model.aggregate([
+        {
+          $lookup: {
+            from: 'games',
+            localField: '_id',
+            foreignField: 'playerId',
+            as: 'games'
           }
-        ],
-        group: ['id'],
-        order: sequelize.literal('winsPercentage DESC'),
-        limit: 1,
-        subQuery: false
-      })
+        },
+        {
+          $addFields: {
+            winsPercentage: {
+              $function: {
+                body: function (wins) {
+                  return wins.filter(win => win).length / wins.length * 100;
+                },
+                args: ['$games.isWin'],
+                lang: 'js'
+              }
+            }
+          }
+        },
+        {
+          $project: {
+            games: false,
+          }
+        },
+        { $sort: { winsPercentage: -1 } },
+        { $limit: 1 } 
+      ])
 
       return {
         error: false,
@@ -96,27 +105,40 @@ class PlayerService extends Service {
 
   async getLoser () {
     try {
-      const data = await this.model.findOne({
-        attributes: {
-          include: [
-            [
-              sequelize.literal('SUM(Games.isWin)/COUNT(Games.isWin)*100'),
-              'winsPercentage'
-            ]
-          ]
-        },
-        include: [
-          {
-            model: Game,
-            required: false,
-            attributes: []
+      const data = await this.model.aggregate([
+        {
+          $lookup: {
+            from: 'games',
+            localField: '_id',
+            foreignField: 'playerId',
+            as: 'games'
           }
-        ],
-        group: ['id'],
-        order: sequelize.literal('winsPercentage ASC'),
-        limit: 1,
-        subQuery: false
-      })
+        },
+        // Since we are using games field to calculate percentage, we need to filter responses to avoid get 
+        // null values derived from games calculation in bottom ranking
+        { $match: { games: { $exists: true , $not: {$size: 0}} } },
+        {
+          $addFields: {
+            winsPercentage: {
+              $function: {
+                body: function (wins) {
+                  return wins.filter(win => win).length / wins.length * 100;
+                },
+                args: ['$games.isWin'],
+                lang: 'js'
+              }
+            }
+          }
+        },
+        {
+          $project: {
+            games: false,
+
+          }
+        },
+        { $sort: { winsPercentage: 1 } },
+        { $limit: 1 } 
+      ])
 
       return {
         error: false,
