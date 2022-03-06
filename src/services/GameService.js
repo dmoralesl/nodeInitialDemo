@@ -8,6 +8,30 @@ class GameService extends Service {
 
   }
 
+
+  async getByAttr (field, value) {
+    try {
+      const games = await this.model.find({
+          [field]: value
+      })
+      return {
+        error: false,
+        statusCode: 200,
+        data: {
+          winPercentage: games.filter(game => game.isWin).length / games.length * 100,
+          games
+        },
+        total: games.length
+      }
+    } catch (errors) {
+      return {
+        error: true,
+        statusCode: 500,
+        errors
+      }
+    }
+  }
+
   async insert(data) {
     // Generating random dice values and result
     const dices = [];
@@ -22,7 +46,7 @@ class GameService extends Service {
     data = { ...data, result, isWin, dices };
 
     try {
-      let item = await this.model.create(data);
+      const item = await this.model.create(data);
 
       
       item.dataValues = {...item.dataValues, dices};
