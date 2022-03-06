@@ -1,18 +1,45 @@
 import Service from './Service.js'
 import Game from '../models/Game.js'
 
-
 class PlayerService extends Service {
   constructor (model) {
-    super(model);
-    this.getWinner = this.getWinner.bind(this);
-    this.getLoser = this.getLoser.bind(this);
+    super(model)
+    this.getWinner = this.getWinner.bind(this)
+    this.getLoser = this.getLoser.bind(this)
   }
 
   async getAll () {
     try {
-      const data = await this.model.find();
-   
+      const data = await this.model.aggregate([
+        {
+          $lookup: {
+            from: 'games',
+            localField: '_id',
+            foreignField: 'playerId',
+            as: 'games'
+          }
+        },
+        {
+          $addFields: {
+            winsPercentage: {
+              $function: {
+                body: function (wins) {
+                  return wins.filter(win => win).length / wins.length * 100;
+                },
+                args: ['$games.isWin'],
+                lang: 'js'
+              }
+            }
+          }
+        },
+        {
+          $project: {
+            games: false,
+          }
+        }
+      ])
+
+      // const data = await this.model.find();
 
       return {
         error: false,
@@ -29,14 +56,16 @@ class PlayerService extends Service {
     }
   }
 
-  async getWinner() {
-
+  async getWinner () {
     try {
-
       const data = await this.model.findOne({
-
         attributes: {
-          include: [[sequelize.literal('SUM(Games.isWin)/COUNT(Games.isWin)*100'), 'winsPercentage']]
+          include: [
+            [
+              sequelize.literal('SUM(Games.isWin)/COUNT(Games.isWin)*100'),
+              'winsPercentage'
+            ]
+          ]
         },
         include: [
           {
@@ -49,7 +78,7 @@ class PlayerService extends Service {
         order: sequelize.literal('winsPercentage DESC'),
         limit: 1,
         subQuery: false
-      });
+      })
 
       return {
         error: false,
@@ -65,14 +94,16 @@ class PlayerService extends Service {
     }
   }
 
-  async getLoser() {
-
+  async getLoser () {
     try {
-
       const data = await this.model.findOne({
-
         attributes: {
-          include: [[sequelize.literal('SUM(Games.isWin)/COUNT(Games.isWin)*100'), 'winsPercentage']]
+          include: [
+            [
+              sequelize.literal('SUM(Games.isWin)/COUNT(Games.isWin)*100'),
+              'winsPercentage'
+            ]
+          ]
         },
         include: [
           {
@@ -85,7 +116,7 @@ class PlayerService extends Service {
         order: sequelize.literal('winsPercentage ASC'),
         limit: 1,
         subQuery: false
-      });
+      })
 
       return {
         error: false,
