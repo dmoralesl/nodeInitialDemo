@@ -2,6 +2,7 @@ import express from 'express';
 
 import GameController from './../src/controllers/GameController.js';
 import PlayerController from './../src/controllers/PlayerController.js';
+import LoginService from './../src/services/LoginService.js';
 
 
 const router = express.Router();
@@ -22,5 +23,8 @@ router.get('/players/ranking', GameController.getMean);
 router.get('/players/winner', PlayerController.getWinner);
 router.get('/players/loser', PlayerController.getLoser);
 
+
+// Admin login
+router.post('/login', LoginService);
 
 export default router;

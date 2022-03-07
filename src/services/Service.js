@@ -111,7 +111,7 @@ class Service {
 
   async deleteByAttr (field, value) {
     try {
-      let item = await this.model.deleteMany({
+      const item = await this.model.deleteMany({
         [field]: value
       })
       if (!item)

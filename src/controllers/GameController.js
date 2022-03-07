@@ -29,7 +29,7 @@ class GameController extends Controller {
   async delete(req, res) {
     const { id } = req.params;
 
-    const response = await this.service.deleteByAttr('playerid', id);
+    const response = await this.service.deleteByAttr('playerId', id);
     
     return res.status(response.statusCode).send(response);
   }

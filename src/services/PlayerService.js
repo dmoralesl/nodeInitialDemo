@@ -1,5 +1,4 @@
 import Service from './Service.js'
-import Game from '../models/Game.js'
 
 class PlayerService extends Service {
   constructor (model) {
