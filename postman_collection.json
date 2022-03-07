@@ -12,7 +12,13 @@
 					"name": "Create player",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"name\": \"Player2\"\r\n}",
@@ -40,7 +46,13 @@
 					"name": "Create anon player",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{}",
@@ -51,7 +63,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/players",
+							"raw": "localhost:3000/api/players?=",
 							"host": [
 								"localhost"
 							],
@@ -59,6 +71,12 @@
 							"path": [
 								"api",
 								"players"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": ""
+								}
 							]
 						}
 					},
@@ -87,7 +105,13 @@
 					"name": "Update player",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"name\": \"New name\"\r\n}",
@@ -121,7 +145,13 @@
 					"name": "Create game",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "localhost:3000/api/players/{{playerId}}/games",
 							"host": [
@@ -142,7 +172,13 @@
 					"name": "Delete games from player",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "localhost:3000/api/players/{{playerId}}/games",
 							"host": [
@@ -163,7 +199,13 @@
 					"name": "Get games from player",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "localhost:3000/api/players/{{playerId}}/games",
 							"host": [
@@ -189,7 +231,13 @@
 					"name": "Average win",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "localhost:3000/api/players/ranking",
 							"host": [
@@ -209,7 +257,13 @@
 					"name": "Winner",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "localhost:3000/api/players/winner",
 							"host": [
@@ -229,7 +283,13 @@
 					"name": "Loser",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "localhost:3000/api/players/loser",
 							"host": [
@@ -246,6 +306,34 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
