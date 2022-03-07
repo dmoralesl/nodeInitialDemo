@@ -1,50 +1,22 @@
+# Joc de daus amb persistència MySql
 
-# Node Initial Project
-
-### Project Structure
-
-Main structure of node.js project. Folders / files:
-
-- <b>\_\_tests__</b>. Tests folder. See [Jest Docs](https://jestjs.io/es-ES/docs/configuration) and [Chai Docs](https://www.chaijs.com/)
-- <b>app</b>:
-    - <b>config</b>
-    - <b>controllers</b>
-    - <b>crons</b>
-    - <b>middleware</b>
-    - <b>models</b>
-    - <b>routes</b>
-    - <b>tmp</b>
-    - <b>app.js</b>. Entry point.
-- <b>.env</b>. Environment descriptor. See [dotenv doc](https://www.npmjs.com/package/dotenv).
-- <b>.eslintrc</b>. Linter JS, static code analyzer. See [EsLint Docs](https://eslint.org/docs/user-guide/configuring/configuration-files).
-- <b>.prettierignore</b>. Code formatter. See [Prettier Config](https://prettier.io/docs/en/configuration.html) and [Prettier Ignore](https://prettier.io/docs/en/ignore.html).
-- <b>.ecosystem.config.js</b>. Process Manage at runtime. See [PM2 Docs](https://pm2.keymetrics.io/).
-- <b>package.json</b>.
-
-### Import project for use with WebStorm
-
-Follow the steps below:
-* Clone the project from the Github Platform. Execute:
-  ```
-  git clone [url project]
-  ```
-* Open the project downloaded.
-![Open Project](img/webstorm_open.png)
+## Requisits
+S'haurà de tenir node i npm instal·lat a la màquina, així com una base de dades de Mongo executant-se al port per defecte.   
 
 
-### Import project for use with Visual Studio Code
-
-Follow the steps below:
-* Clone the project from the Github Platform. Execute:
-  ```
-  git clone [url project]
-  ```
-* Open the project downloaded.
-  ![Open Project](img/VSC_open.png)
+## Application setup
+Per poder executar l'aplicació (després d'enllestir la base de dades), haurem d'instal·lar el projecte amb el commandament: 
+```bash
+npm install
+```
 
 
-### Utilities
+## Execució de la API 
+Per tenir el servidor en marxa i poder fer-lo servir, haurem d'haver completat els dos punts anterior amb èxit. S'haurà de llançar el següent comandament per activar el servidor: 
+```bash
+npm start
+```
 
-* [Node Developers Guide](https://nodejs.dev/learn)
-* **.gitignore file** configuration. See [Official Docs](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files).
-* **Git branches**. See [Official Docs](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)
+## Provant els endpoints
+Hi ha a l'arrel del directori un fitxer anomenat "postman_collection.json" que es pot importar amb el programa Postman i conté una petició d'exemple per a cada endpoint.    
+La primera tasca serà crear un usuari, que es podrà fer a través de la petició Create player o Create anon player de la carpeta Players. Amb l'ID que retorni aquesta petició haurem de fixar una variable de l'entorn de la col·lecció amb nom "playerId" i com a valor l'ID que s'ha retornat. Aquesta variable servirà per altres peticions com la de crear partides, modificar l'usuari o esborrar totes les partides de l'usuari.
