@@ -11,7 +11,7 @@ Dice.init({
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    gameId: {
+    GameId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {

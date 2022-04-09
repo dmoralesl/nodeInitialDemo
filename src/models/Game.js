@@ -11,7 +11,7 @@ Game.init({
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    playerId: {
+    PlayerId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {

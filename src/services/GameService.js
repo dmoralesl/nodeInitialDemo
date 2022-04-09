@@ -52,7 +52,7 @@ class GameService extends Service {
       let dices = await Promise.all(
         diceValues.map(async(diceValue) => await this.diceService.insert({
           result: diceValue,
-          gameId: item.id
+          GameId: item.id
         }))
       )
       

@@ -14,7 +14,6 @@ class PlayerService extends Service {
   async getAll () {
 
     try {
-
       const data = await this.model.findAll({
 
         attributes: {
@@ -29,6 +28,8 @@ class PlayerService extends Service {
         ],
         group: ['id']
       });
+      console.log('inside service', this.model)
+
       const total = await this.model.count();
 
       return {
