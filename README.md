@@ -1,50 +1,41 @@
+# Joc de daus amb persistència MySql
 
-# Node Initial Project
+## Requisits
+S'haurà de tenir node i npm instal·lat a la màquina, així com un servidor de MySql executant-se al port per defecte.   
+A més, caldrà tenir dues variables d'entorn definides anomenades MYSQL_USER i MYSQL_PASSWORD amb les credencials de la base de dades. Alternativament, es pot obviar aquest pas si tenim un usuari "root" amb contrasenya "root", ja que són els valors per defecte. 
+Les variables d'entorn també poden estar definides a un fitxer .env a l'arrel del projecte, es pot seguir l'estructura del fitxer "example.env".
 
-### Project Structure
+## DB Setup
+Per poder executar l'aplicació, s'haurà de crear en primer lloc la base de dades. 
+Per aquest exercici la base de dades s'anomenarà dice_game.
+La seqüència de comandaments per poder crear-la és la següent:
 
-Main structure of node.js project. Folders / files:
+```bash
+mysql -u <user> -p
+```
+S'haurà de substituir \<user> pel nom d'usuari amb el que tenim credencials per accedir a la consola de MySql. Al donar-li a ENTER ens preguntarà pel password de l'usuari i si s'introdueix correctament accedirem a la consola de MySql.   
+Un cop dintre de la consola de MySql s'haurà d'executar la següent sentència SQL: 
+```SQL 
+CREATE DATABASE IF NOT EXISTS dice_game;
+```
+Per confirmar que els pasos s'han efectuat de forma correcta i que s'ha creat la base de dades, hauríem de veure el següent missatge a la consola.
+```MYSQL
+Query OK, 1 row affected (0.02 sec)
+```
 
-- <b>\_\_tests__</b>. Tests folder. See [Jest Docs](https://jestjs.io/es-ES/docs/configuration) and [Chai Docs](https://www.chaijs.com/)
-- <b>app</b>:
-    - <b>config</b>
-    - <b>controllers</b>
-    - <b>crons</b>
-    - <b>middleware</b>
-    - <b>models</b>
-    - <b>routes</b>
-    - <b>tmp</b>
-    - <b>app.js</b>. Entry point.
-- <b>.env</b>. Environment descriptor. See [dotenv doc](https://www.npmjs.com/package/dotenv).
-- <b>.eslintrc</b>. Linter JS, static code analyzer. See [EsLint Docs](https://eslint.org/docs/user-guide/configuring/configuration-files).
-- <b>.prettierignore</b>. Code formatter. See [Prettier Config](https://prettier.io/docs/en/configuration.html) and [Prettier Ignore](https://prettier.io/docs/en/ignore.html).
-- <b>.ecosystem.config.js</b>. Process Manage at runtime. See [PM2 Docs](https://pm2.keymetrics.io/).
-- <b>package.json</b>.
-
-### Import project for use with WebStorm
-
-Follow the steps below:
-* Clone the project from the Github Platform. Execute:
-  ```
-  git clone [url project]
-  ```
-* Open the project downloaded.
-![Open Project](img/webstorm_open.png)
+## Application setup
+Per poder executar l'aplicació (després de enllestir la base de dades), haurem d'instal·lar el projecte amb el commandament: 
+```bash
+npm install
+```
 
 
-### Import project for use with Visual Studio Code
+## Execució de la API 
+Per tenir el servidor en marxa i poder fer-lo servir, haurem d'haver completat els dos punts anterior amb èxit. S'haurà de llançar el següent comandament per activar el servidor: 
+```bash
+npm start
+```
 
-Follow the steps below:
-* Clone the project from the Github Platform. Execute:
-  ```
-  git clone [url project]
-  ```
-* Open the project downloaded.
-  ![Open Project](img/VSC_open.png)
-
-
-### Utilities
-
-* [Node Developers Guide](https://nodejs.dev/learn)
-* **.gitignore file** configuration. See [Official Docs](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files).
-* **Git branches**. See [Official Docs](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)
+## Provant els endpoints
+Hi ha a l'arrel del directori un fitxer anomenat "postman_collection.json" que es pot importar amb el programa Postman i conté una petició d'exemple per a cada endpoint.    
+La primera tasca serà crear un usuari, que es podrà fer a través de la petició Create player o Create anon player de la carpeta Players. Amb l'ID que retorni aquesta petició haurem de fixar una variable de l'entorn de la col·lecció amb nom "playerId" i com a valor l'ID que s'ha retornat. Aquesta variable servirà per altres peticions com la de crear partides, modificar l'usuari o esborrar totes les partides de l'usuari.
