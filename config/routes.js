@@ -27,4 +27,12 @@ router.get('/players/loser', PlayerController.getLoser);
 // Admin login
 router.post('/login', LoginService);
 
+// Handling non valid routes (404)
+router.all('/*' ,(req, res, next) => {
+    res.status(404)
+    res.json({
+        message: 'Route not found'
+    });
+});
+
 export default router;
