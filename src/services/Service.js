@@ -20,7 +20,7 @@ class Service {
     } catch (errors) {
       return {
         error: true,
-        statusCode: 500,
+        statusCode: 400,
         errors
       }
     }
@@ -40,7 +40,7 @@ class Service {
     } catch (errors) {
       return {
         error: true,
-        statusCode: 500,
+        statusCode: 400,
         errors
       }
     }
@@ -58,7 +58,7 @@ class Service {
       console.log('error', error)
       return {
         error: true,
-        statusCode: 500,
+        statusCode: 400,
         message: error.errmsg || 'Not able to create item',
         errors: error.errors
       }
@@ -78,7 +78,7 @@ class Service {
     } catch (error) {
       return {
         error: true,
-        statusCode: 500,
+        statusCode: 400,
         error
       }
     }
@@ -103,7 +103,7 @@ class Service {
     } catch (error) {
       return {
         error: true,
-        statusCode: 500,
+        statusCode: 400,
         error
       }
     }
@@ -130,7 +130,7 @@ class Service {
     } catch (error) {
       return {
         error: true,
-        statusCode: 500,
+        statusCode: 400,
         error
       }
     }
