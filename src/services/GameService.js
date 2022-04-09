@@ -77,14 +77,18 @@ class GameService extends Service {
         }
       ])
 
-      const wins = data.find(item => item._id === true).count
-      const losses = data.find(item => item._id === false).count
+
+      const wins = data.find(item => item._id === true)?.count
+      const losses = data.find(item => item._id === false)?.count
+
+      console.log(wins, losses)
+
 
       return {
         error: false,
         statusCode: 200,
         data: {
-          winPercentage: wins !== null ? wins  / (wins + losses) * 100 : 0
+          winPercentage: wins ? wins  / (wins + losses) * 100 : 0
         }
       }
     } catch (errors) {
