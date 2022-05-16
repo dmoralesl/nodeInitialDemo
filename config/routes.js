@@ -1,0 +1,38 @@
+import express from 'express';
+
+import GameController from './../src/controllers/GameController.js';
+import PlayerController from './../src/controllers/PlayerController.js';
+import LoginService from './../src/services/LoginService.js';
+
+
+const router = express.Router();
+
+
+// Player routes
+router.get('/players', PlayerController.getAll);
+router.post('/players', PlayerController.insert)
+router.put('/players/:id', PlayerController.update);
+
+// Game routes
+router.get('/players/:id/games', GameController.getAll);
+router.post('/players/:id/games', GameController.insert)
+router.delete('/players/:id/games', GameController.delete);
+
+// Ranking routes
+router.get('/players/ranking', GameController.getMean);
+router.get('/players/winner', PlayerController.getWinner);
+router.get('/players/loser', PlayerController.getLoser);
+
+
+// Admin login
+router.post('/login', LoginService);
+
+// Handling non valid routes (404)
+router.all('/*' ,(req, res, next) => {
+    res.status(404)
+    res.json({
+        message: 'Route not found'
+    });
+});
+
+export default router;
